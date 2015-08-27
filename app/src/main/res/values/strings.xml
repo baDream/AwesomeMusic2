@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Awesome Music</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_fragment">FragmentActivity</string>
+    <string name="title_activity_frag">FragActivity</string>
+    <string name="s_awesome_music">awesome Music</string>
+    <string name="l_awesome_music">AWESOME MUSIC</string>
+</resources>

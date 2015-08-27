@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+    }
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+    defaultConfig {
+        applicationId "kr.baggum.awesomemusic"
+        minSdkVersion 18
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        renderscriptTargetApi 22
+        renderscriptSupportModeEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.0'
+    compile 'com.yqritc:recyclerview-flexibledivider:1.2.5'
+    compile 'jp.wasabeef:picasso-transformations:1.0.5'
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.2.3'
+}

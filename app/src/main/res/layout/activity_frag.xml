@@ -1,0 +1,18 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/mini_tab_layout">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#B2DFDB" />
+
+    <FrameLayout
+        android:id="@+id/mini_content_fragment"
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    </LinearLayout>
