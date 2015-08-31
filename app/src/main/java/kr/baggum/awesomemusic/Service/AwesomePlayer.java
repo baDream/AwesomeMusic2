@@ -240,6 +240,9 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     }
     @Override
     public void onCompletion(MediaPlayer mp) {
+        //TODO error: this method is called even if the songs instance is null -> NULLPOINTEREXCEPTION
+        if(songs == null) return;
+
         Log.d("aaa", "ap - onCompletion");
         if( dbHelper != null ) dbHelper.countSkip(getCurrentPosition());
 

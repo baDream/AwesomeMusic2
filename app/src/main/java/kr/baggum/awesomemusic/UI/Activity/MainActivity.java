@@ -644,8 +644,9 @@ public class MainActivity extends ActionBarActivity {
         stateChangeMessageFromMP();
     }
 
+    //reload list
     public void listChangeEvent(final MainActivity baseActivity) {
-        //reload list
+
         for (int i = 0; i < mPager.getOffscreenPageLimit(); i++) {
             final TestFragment tf = (TestFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + i);
 
@@ -689,7 +690,7 @@ public class MainActivity extends ActionBarActivity {
 
                         case TestFragment.SKIP:
                             tf.titleAdapter = new TitleRecyclerAdapter(baseActivity, // getApplication 쓰면 에러남.. (android.app.Application 반환 됨).
-                                    ListGenerator.getRecentlyAddedList(getApplicationContext()),
+                                    ListGenerator.getSkipSongList(getApplicationContext()),
                                     (LinearLayoutManager) tf.recyclerView.getLayoutManager());
                             tf.titleAdapter.notifyDataSetChanged();
                             tf.recyclerView.setAdapter(tf.titleAdapter);
@@ -709,7 +710,19 @@ public class MainActivity extends ActionBarActivity {
                             tf.recyclerView.setAdapter(tf.titleAdapter);
                             break;
                         case TestFragment.FOLDER:
-                            tf.folderAdapter = new FolderRecyclerAdapter(getApplicationContext(), ListGenerator.getDirectoryList(getApplicationContext()));
+                            //load last song info
+                            SharedPreferences appSharedPrefs = PreferenceManager
+                                    .getDefaultSharedPreferences(getApplicationContext());
+
+                            String lastPath = appSharedPrefs.getString("LASTSONG_PATH", null);
+
+                            if(lastPath == null) break;
+//                            ArrayList<IDTag> songList = ListGenerator.getAllSongsInPathWithoutChild(getApplicationContext(), lastPath);
+
+//                            TestFragment lastFragment = (TestFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + TestFragment.FOLDER);
+                            tf.folderAdapter.moveIntoSpecificFolder(lastPath.substring(lastPath.lastIndexOf("/") + 1), lastPath.substring(1, lastPath.length()));
+
+//                            tf.folderAdapter = new FolderRecyclerAdapter(getApplicationContext(), ListGenerator.getDirectoryList(getApplicationContext()));
                             tf.folderAdapter.notifyDataSetChanged();
                             tf.recyclerView.setAdapter(tf.folderAdapter);
                             break;
