@@ -187,9 +187,9 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         if(songs == null)
             return;
         try {
-            if( isPicked && isPlaying() && dbHelper != null){
-                dbHelper.countSkip(getCurrentPosition());
-            }
+//            if( isPicked && isPlaying() && dbHelper != null){
+//                dbHelper.countSkip(getCurrentPosition());
+//            }
             //play a song
             player.reset();
 
