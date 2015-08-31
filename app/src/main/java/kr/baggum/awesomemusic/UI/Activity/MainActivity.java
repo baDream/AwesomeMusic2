@@ -2,10 +2,12 @@ package kr.baggum.awesomemusic.UI.Activity;
 
 import android.content.ComponentName;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 
 import kr.baggum.awesomemusic.Data.IDTag;
 import kr.baggum.awesomemusic.Data.ListGenerator;
+import kr.baggum.awesomemusic.Data.UserDB;
 import kr.baggum.awesomemusic.R;
 import kr.baggum.awesomemusic.Service.AwesomePlayer;
 import kr.baggum.awesomemusic.Service.MediaScan;
@@ -487,6 +490,25 @@ public class MainActivity extends ActionBarActivity {
     public void songPicked(ArrayList<IDTag> list, int index) {
         if(mPager.getCurrentItem() == TestFragment.SKIP){
             //TODO restore skipped song into non-skipped song
+            SQLiteDatabase db = UserDB.getInstance(getApplicationContext()).getDatabase();
+            IDTag tag = list.get(index);
+
+            String whereClause = "title='"+tag.title.replaceAll("'", "''")+"' AND " +
+                    "artist='"+tag.artist.replaceAll("'", "''")+"' AND " +
+                    "album='"+tag.album.replaceAll("'", "''")+"'";
+
+            //set this song is NOT skipped
+            ContentValues listRow = new ContentValues();
+            listRow.put("skipflag", 0);
+            db.update(UserDB.SONG_LIST_NAME, listRow, whereClause, null);
+
+            //reset skip count
+            listRow = new ContentValues();
+            listRow.put("skipcount", 0);
+            db.update(UserDB.SONG_TABLE_NAME, listRow, whereClause, null);
+
+            //refresh UI
+            listChangeEvent(this);
             return;
         }
 
@@ -651,8 +673,7 @@ public class MainActivity extends ActionBarActivity {
 
     //reload list
     public void listChangeEvent(final MainActivity baseActivity) {
-
-        for (int i = 0; i < mPager.getOffscreenPageLimit(); i++) {
+        for (int i = 0; i < mPager.getChildCount(); i++) {
             final TestFragment tf = (TestFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + i);
 
             if (tf == null || !tf.isFinish()) return; //Fragment does not finish generating list
@@ -725,6 +746,7 @@ public class MainActivity extends ActionBarActivity {
 //                            ArrayList<IDTag> songList = ListGenerator.getAllSongsInPathWithoutChild(getApplicationContext(), lastPath);
 
 //                            TestFragment lastFragment = (TestFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + TestFragment.FOLDER);
+                            tf.folderAdapter = new FolderRecyclerAdapter(baseActivity, ListGenerator.getDirectoryList(baseActivity.getApplicationContext()));
                             tf.folderAdapter.moveIntoSpecificFolder(lastPath.substring(lastPath.lastIndexOf("/") + 1), lastPath.substring(1, lastPath.length()));
 
 //                            tf.folderAdapter = new FolderRecyclerAdapter(getApplicationContext(), ListGenerator.getDirectoryList(getApplicationContext()));
