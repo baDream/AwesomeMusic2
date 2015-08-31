@@ -485,6 +485,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void songPicked(ArrayList<IDTag> list, int index) {
+        if(mPager.getCurrentItem() == TestFragment.SKIP){
+            //TODO restore skipped song into non-skipped song
+            return;
+        }
+
         AwesomePlayer.instance.setSongs(list);
         AwesomePlayer.instance.setSongIndex(index);
         AwesomePlayer.instance.isPicked = true;

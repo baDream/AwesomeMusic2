@@ -54,6 +54,7 @@ public class AwesomeDBHelper {
 
             //apply change to list if the skip count exceed threshold
             if( skip+1 >= 3 ){
+                Log.d("aaa","hi you are delted!");
                 listRow = new ContentValues();
                 listRow.put("skipflag",1);
                 db.update(UserDB.SONG_LIST_NAME, listRow, whereClause, null);
@@ -144,6 +145,9 @@ public class AwesomeDBHelper {
 
 
         IDTag tag = AwesomePlayer.instance.getCurrentSong();
+
+        Log.d("aaa", "testtag " + tag);
+
         String whereClause = "title='"+tag.title.replaceAll("'", "''")+"' AND " +
                 "artist='"+tag.artist.replaceAll("'", "''")+"' AND " +
                 "album='"+tag.album.replaceAll("'", "''")+"'";

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +93,9 @@ public class TitleRecyclerAdapter extends RecyclerView.Adapter<TitleRecyclerAdap
         public void onClick(View v) {
             //set click listener to each song item
 
+
             //pass this event to UI (activity)
-            ((MainActivity)mContext).songPicked(list,getAdapterPosition());
+            ((MainActivity)mContext).songPicked(list, getAdapterPosition());
 
             //TODO Error happened..
             //java.lang.ClassCastException: android.app.Application cannot be cast to com.example.user.awesomemusic.UI.Activity.MainActivity
