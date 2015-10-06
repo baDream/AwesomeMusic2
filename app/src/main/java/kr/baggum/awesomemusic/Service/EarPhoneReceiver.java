@@ -32,10 +32,10 @@ public class EarPhoneReceiver extends BroadcastReceiver {
             isEarPhoneOn = (intent.getIntExtra("state", 0) > 0) ? true : false;
             if (isEarPhoneOn && AwesomePlayer.instance.isPaused) {
                 AwesomePlayer.instance.start();
+                AwesomePlayer.instance.updateUIActivity();
             } else if (!isEarPhoneOn && AwesomePlayer.instance.isPlaying()) {
-                AwesomePlayer.instance.pausePlayer();
+                AwesomePlayer.instance.stopNoti();
             }
-            AwesomePlayer.instance.updateUIActivity();
         }
         if( Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
             KeyEvent keyEvent = (KeyEvent) intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);

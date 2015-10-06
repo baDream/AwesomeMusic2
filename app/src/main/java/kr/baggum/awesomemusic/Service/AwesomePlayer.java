@@ -187,9 +187,9 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         if(songs == null)
             return;
         try {
-//            if( isPicked && isPlaying() && dbHelper != null){
-//                dbHelper.countSkip(getCurrentPosition());
-//            }
+            if( isPicked && isPlaying() && dbHelper != null){
+                dbHelper.countSkip(getCurrentPosition());
+            }
             //play a song
             player.reset();
 
@@ -240,9 +240,6 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     }
     @Override
     public void onCompletion(MediaPlayer mp) {
-        //TODO error: this method is called even if the songs instance is null -> NULLPOINTEREXCEPTION
-        if(songs == null) return;
-
         Log.d("aaa", "ap - onCompletion");
         if( dbHelper != null ) dbHelper.countSkip(getCurrentPosition());
 
@@ -258,7 +255,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     public void onPrepared(MediaPlayer mp) {
         //when the Music player is prepared
         //start playback
-        Log.i("ccc", "state replay : " + replay + ", shuffle : " + shuffle);
+        Log.i("ccc", "state replay : " + replay + ", shuffle : " + shuffle );
         mp.start();
 
         if( ScreenOnService.isRunning == false ) {
@@ -268,10 +265,6 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
 
         //set notification
         setNotiBar();
-
-        //startForeground : to prevent the service from stopping at later
-        startForeground(1, noti); // first parameter(notification ID) should not be 0
-
 
         if( !broadRegister ){
             earBroadcastReceiver = new EarPhoneReceiver();
@@ -376,6 +369,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         builder.setWhen(System.currentTimeMillis());
         builder.setPriority(Notification.PRIORITY_MAX);
         noti = builder.build();
+        //noti.flags = Notification.FLAG_NO_CLEAR;
 
         Intent intent1 = new Intent("play");
         PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1, 0);
@@ -411,7 +405,18 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         contentiew.setImageViewUri(R.id.album_art2, sAlbumArtUri);
 
         noti.contentView = contentiew;
+        //startForeground : to prevent the service from stopping at later
+        startForeground(1, noti); // first parameter(notification ID) should not be 0
         nm.notify(1, noti);
+    }
+
+    public void stopNoti(){
+        player.pause();
+        isPaused = true;
+        player.stop();
+        dbHelper=null;
+        stopForeground(true);
+        nm.cancelAll();
     }
     public void setSongIndex(int songindex) {
         this.songPos = songindex;
@@ -443,7 +448,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
 
         if( shuffle ){
             Collections.sort(tempSongs, new Comparator<IDTag>() {
-                public int compare(IDTag obj1, IDTag obj2) {
+                public int compare(IDTag obj1, IDTag obj2){
                     return (obj1.score > obj2.score) ? -1 : (obj1.score > obj2.score) ? 1 : 0;
                 }
             });
@@ -496,11 +501,6 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         setNotiBar();
         stopForeground(true);
     }
-
-
-
-
-
 
     public void increasePlayCount(){
         songs.get(songPos).playCount++;
