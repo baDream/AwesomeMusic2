@@ -648,7 +648,6 @@ public class MainActivity extends ActionBarActivity {
             case TestFragment.TITLE:
             case TestFragment.ALBUM:
             case TestFragment.ARTIST:
-            case TestFragment.SKIP:
             case TestFragment.RECENT:
             case TestFragment.MOSTPLAYED:
             case TestFragment.GRAPH:
@@ -667,8 +666,11 @@ public class MainActivity extends ActionBarActivity {
 
         AwesomePlayer.instance.setShuffle();
         AwesomePlayer.instance.setSongIndex(0);
-        AwesomePlayer.instance.playSong();
-        stateChangeMessageFromMP();
+
+        if(list.size()>0) {
+            AwesomePlayer.instance.playSong();
+            stateChangeMessageFromMP();
+        }
     }
 
     //reload list

@@ -56,7 +56,6 @@
 
         <service android:name=".Service.MediaScan"/>
         <service android:name=".Service.ScreenOnService"/>
-
         <service android:name="kr.baggum.awesomemusic.Service.AwesomePlayer" />
 
     </application>

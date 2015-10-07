@@ -80,6 +80,9 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     public boolean isPaused;
     ComponentName mediaButton;
     AudioManager am;
+    public long lastPressTime;
+    public long newPressTime;
+    public final long DOUBLE_DELAY=500;
 
     @Override
     public void onCreate() {
@@ -413,6 +416,24 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         nm.notify(1, noti);
     }
 
+    public void updateUInotNoti(){
+        if(baseActivity != null && baseActivity.isActivityVisible())
+            baseActivity.stateChangeMessageFromMP();
+        if(lockScreenActivity != null && lockScreenActivity.isActivityVisible()){
+            lockScreenActivity.stateChangeMessageFromMP();
+        }
+        if( isPlaying() ) {
+            if (baseActivity != null && baseActivity.isActivityVisible())
+                baseActivity.changePlayButton(false);
+            if (lockScreenActivity != null && lockScreenActivity.isActivityVisible())
+                lockScreenActivity.changePlayButton(false);
+        }else{
+            if (baseActivity != null && baseActivity.isActivityVisible())
+                baseActivity.changePlayButton(true);
+            if (lockScreenActivity != null && lockScreenActivity.isActivityVisible())
+                lockScreenActivity.changePlayButton(true);
+        }
+    }
     public void stopNoti(){
         player.pause();
         isPaused = true;

@@ -27,21 +27,25 @@ public class EarPhoneReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        abortBroadcast();
+
         if( intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
             if( !isIt ){ isIt = true; return ; }
             isEarPhoneOn = (intent.getIntExtra("state", 0) > 0) ? true : false;
             if (isEarPhoneOn && AwesomePlayer.instance.isPaused) {
                 AwesomePlayer.instance.start();
-                AwesomePlayer.instance.updateUIActivity();
             } else if (!isEarPhoneOn && AwesomePlayer.instance.isPlaying()) {
                 AwesomePlayer.instance.stopNoti();
             }
+            AwesomePlayer.instance.updateUInotNoti();
         }
         if( Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
             KeyEvent keyEvent = (KeyEvent) intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
             if( keyEvent == null ) return ;
 
             int action = keyEvent.getAction();
+
+
 
             if( action == KeyEvent.ACTION_DOWN){    //When Clicked HeadSet Button
                 if( AwesomePlayer.instance != null ) {
@@ -93,13 +97,20 @@ public class EarPhoneReceiver extends BroadcastReceiver {
                         AwesomePlayer.instance.playSong();
                     }
                 }
-            }else if( action == KeyEvent.ACTION_MULTIPLE ){
-                if( AwesomePlayer.instance.isPlaying() ){
-                    AwesomePlayer.instance.playNext();
+            }else if(action == KeyEvent.ACTION_UP){
+                AwesomePlayer.instance.lastPressTime = AwesomePlayer.instance.newPressTime;
+                AwesomePlayer.instance.newPressTime = System.currentTimeMillis();
+                long delta = AwesomePlayer.instance.newPressTime - AwesomePlayer.instance.lastPressTime;
+
+                // Case for double click
+                if(delta < AwesomePlayer.instance.DOUBLE_DELAY){
+                    if( AwesomePlayer.instance.isPlaying() ){
+                        AwesomePlayer.instance.playNext();
+                    }else{
+                        AwesomePlayer.instance.nextSong();
+                    }
                 }
             }
-
-            abortBroadcast();
         }
     }
 }
