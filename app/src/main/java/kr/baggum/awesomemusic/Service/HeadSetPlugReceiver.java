@@ -25,7 +25,7 @@ public class HeadSetPlugReceiver extends BroadcastReceiver {
                 isEarPhoneOn = (intent.getIntExtra("state", 0) > 0) ? true : false;
                 if (isEarPhoneOn && AwesomePlayer.instance.isPaused) {
                     AwesomePlayer.instance.start();
-                } else if (!isEarPhoneOn && AwesomePlayer.instance.isPlaying()) {
+                } else if (!isEarPhoneOn ) {
                     AwesomePlayer.instance.stopNoti();
                     AwesomePlayer.instance.updateUInotNoti();
                 }
