@@ -86,7 +86,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     private boolean broadRegister = false;
 
     //EarPhone
-    //private BroadcastReceiver earBroadcastReceiver;
+    private BroadcastReceiver headSetPlugReceiver;
     public boolean isPaused;
     ComponentName mediaButton;
     AudioManager am;
@@ -213,7 +213,6 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             player.setDataSource(getApplicationContext(), trackUri);   //get song data from the source
             player.prepareAsync();          // onPrepared will be calle musicMetadataSet = new MyID3().read(mf);
 
-
             //test for lyric
             AudioFile f = AudioFileIO.read(new File(playsong.path));
             Tag tag = f.getTag();
@@ -223,7 +222,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             if(lyric == "")
                 lyric = "no lyric";
 
-            Log.d("ll",lyric);
+            Log.d("ll", lyric);
 
 
         } catch (IOException e) {
@@ -305,7 +304,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         setNotiBar();
 
         if( !broadRegister ){
-            //earBroadcastReceiver = new EarPhoneReceiver();
+            headSetPlugReceiver = new HeadSetPlugReceiver();
             notiBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -359,12 +358,12 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
             intentFilter2.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY+999999999);
 
-            mediaButton = new ComponentName(getPackageName(), EarPhoneReceiver.class.getName());
+            mediaButton = new ComponentName(getPackageName(), HeadSetPlugReceiver.class.getName());
             am = (AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             am.registerMediaButtonEventReceiver(mediaButton);
 
             registerReceiver(notiBroadcastReceiver, intentFilter);
-            //registerReceiver(earBroadcastReceiver, intentFilter2);
+            registerReceiver(headSetPlugReceiver, intentFilter2);
 
             broadRegister = true;
         }
@@ -469,8 +468,6 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     public void stopNoti(){
         player.pause();
         isPaused = true;
-        player.stop();
-        dbHelper=null;
         stopForeground(true);
         nm.cancelAll();
     }
@@ -566,7 +563,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         player.release();
         stopForeground(true);
         unregisterReceiver(notiBroadcastReceiver);
-        //unregisterReceiver(earBroadcastReceiver);
+        unregisterReceiver(headSetPlugReceiver);
         broadRegister=false;
         am.unregisterMediaButtonEventReceiver(mediaButton);
         super.onDestroy();

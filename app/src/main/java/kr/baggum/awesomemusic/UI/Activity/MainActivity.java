@@ -297,9 +297,7 @@ public class MainActivity extends ActionBarActivity {
                             //no operation
                         }
                     }
-
                 }
-
                 //ToDo 옵션불러오기
                 loadOption();
             }
@@ -329,7 +327,6 @@ public class MainActivity extends ActionBarActivity {
         if (MediaScan.instance != null) {
             MediaScan.instance.setMainActivity(null);
         }
-
     }
 
     @Override

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -51,13 +52,11 @@
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
-                <action android:name="android.intent.action.HEADSET_PLUG"/>
             </intent-filter>
         </receiver>
 
         <service android:name=".Service.MediaScan"/>
         <service android:name=".Service.ScreenOnService"/>
         <service android:name="kr.baggum.awesomemusic.Service.AwesomePlayer" />
-
     </application>
 </manifest>
