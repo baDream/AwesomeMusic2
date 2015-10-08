@@ -213,7 +213,17 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             player.setDataSource(getApplicationContext(), trackUri);   //get song data from the source
             player.prepareAsync();          // onPrepared will be calle musicMetadataSet = new MyID3().read(mf);
 
-            //test for lyric
+        } catch (IOException e) {
+            Log.e("aaa", "Error : AWESOME PLAYER - setting data source");
+            e.printStackTrace();
+        }
+
+        isSongChanged = false;
+    }
+    public String getLyric(){
+        //test for lyric
+        try {
+            IDTag playsong = songs.get(songPos);
             AudioFile f = AudioFileIO.read(new File(playsong.path));
             Tag tag = f.getTag();
 
@@ -222,8 +232,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             if(lyric == "")
                 lyric = "no lyric";
 
-            Log.d("ll", lyric);
-
+            return lyric;
 
         } catch (IOException e) {
             Log.e("aaa", "Error : AWESOME PLAYER - setting data source");
@@ -237,8 +246,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         } catch (InvalidAudioFrameException e) {
             e.printStackTrace();
         }
-
-        isSongChanged = false;
+        return "";
     }
     public void playPrev(){
         prevSong();

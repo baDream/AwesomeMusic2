@@ -75,6 +75,18 @@
                     android:layout_gravity="center"
                     android:scaleType="fitXY"/>
 
+                <!--text - song text view -->
+                <TextView
+                    android:id="@+id/play_LyricView"
+                    android:layout_width="500dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:elevation="100dp"
+                    android:scrollbars="vertical"
+                    android:textColor="#FFFFFF"
+                    android:background="#90000000"/>
+
                 <ImageView
                     android:id="@+id/play_imageView_main"
                     android:layout_width="250dp"

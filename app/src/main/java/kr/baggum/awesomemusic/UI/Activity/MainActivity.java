@@ -68,6 +68,8 @@ public class MainActivity extends ActionBarActivity {
     int songSeek;
     Thread seekBarChecker;
 
+    TextView mLyricView;
+
     ImageView mPlayImgViewblur;
     ImageView mPlayImgViewMain;
 
@@ -191,6 +193,9 @@ public class MainActivity extends ActionBarActivity {
         tvArtist.setSingleLine(true);
         tvArtist.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         tvArtist.setMarqueeRepeatLimit(-1);
+
+
+        mLyricView = (TextView) findViewById(R.id.play_LyricView);
 
         mPlayImgViewblur = (ImageView) findViewById(R.id.play_imageView_blur);
         mPlayImgViewMain = (ImageView) findViewById(R.id.play_imageView_main);
@@ -445,6 +450,8 @@ public class MainActivity extends ActionBarActivity {
         updateMiniPlayView(currentSongTag);
         setPlayActivity(currentSongTag);
         slidingPanelLayout.openPane();
+
+        mLyricView.setText(AwesomePlayer.instance.getLyric());
 
         //버튼상태 변경
         stateButton();
@@ -906,6 +913,17 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void setPlayViewButton() {
+
+        mPlayImgViewMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mLyricView.getVisibility()== View.VISIBLE)
+                    mLyricView.setVisibility(View.GONE);
+                else
+                    mLyricView.setVisibility(View.VISIBLE);
+
+            }
+        });
 
         mUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
