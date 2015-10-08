@@ -76,7 +76,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     private boolean broadRegister = false;
 
     //EarPhone
-    private BroadcastReceiver earBroadcastReceiver;
+    //private BroadcastReceiver earBroadcastReceiver;
     public boolean isPaused;
     ComponentName mediaButton;
     AudioManager am;
@@ -273,7 +273,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         setNotiBar();
 
         if( !broadRegister ){
-            earBroadcastReceiver = new EarPhoneReceiver();
+            //earBroadcastReceiver = new EarPhoneReceiver();
             notiBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -332,7 +332,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             am.registerMediaButtonEventReceiver(mediaButton);
 
             registerReceiver(notiBroadcastReceiver, intentFilter);
-            registerReceiver(earBroadcastReceiver, intentFilter2);
+            //registerReceiver(earBroadcastReceiver, intentFilter2);
 
             broadRegister = true;
         }
@@ -517,13 +517,13 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         player.pause();
         isPaused = true;
         setNotiBar();
-        stopForeground(true);
+        //stopForeground(true);
     }
     public void stopPlayer(){
         player.stop();
         dbHelper=null;
         setNotiBar();
-        stopForeground(true);
+        //stopForeground(true);
     }
 
     public void increasePlayCount(){
@@ -534,7 +534,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         player.release();
         stopForeground(true);
         unregisterReceiver(notiBroadcastReceiver);
-        unregisterReceiver(earBroadcastReceiver);
+        //unregisterReceiver(earBroadcastReceiver);
         broadRegister=false;
         am.unregisterMediaButtonEventReceiver(mediaButton);
         super.onDestroy();

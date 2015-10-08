@@ -394,7 +394,7 @@ public class ListGenerator {
                             "path LIKE '"+ path+"/%' AND " +
                             "path NOT LIKE '" + path+"/%/%'" + " ORDER BY path ASC";
 
-        Cursor listDBcursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_LIST_NAME+ whereClause , null);
+        Cursor listDBcursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_LIST_NAME + whereClause , null);
 
         if(listDBcursor == null || listDBcursor.getCount()<=0)
             return null;
@@ -410,7 +410,6 @@ public class ListGenerator {
 
     //public static ArrayList<IDTag> getAllSongsInPathWithChild(Context context){
     //Cursor listDBcursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_LIST_NAME+ " WHERE skipflag=0 AND path LIKE '"+ path+"/%'
-
 }
 
 

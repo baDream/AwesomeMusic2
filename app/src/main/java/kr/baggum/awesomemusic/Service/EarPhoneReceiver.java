@@ -22,7 +22,6 @@ public class EarPhoneReceiver extends BroadcastReceiver {
 
     private boolean isEarPhoneOn;
     private static boolean isIt=false;
-    private ServiceConnection musicConnection;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -59,7 +58,6 @@ public class EarPhoneReceiver extends BroadcastReceiver {
                     Intent playIntent = new Intent(context, AwesomePlayer.class);
 
                     ComponentName startResult = context.startService(playIntent);
-                    //boolean bindResult = context.bindService(playIntent, musicConnection, context.BIND_AUTO_CREATE);
 
                     SharedPreferences appSharedPrefs = PreferenceManager
                             .getDefaultSharedPreferences(context);
@@ -70,8 +68,6 @@ public class EarPhoneReceiver extends BroadcastReceiver {
                     int songIndex = appSharedPrefs.getInt("LASTSONG_SONG_INDEX", -1);
 
                     if(tabIndex != -1 && songIndex != -1) {
-                        //get song list from DB
-
                         ArrayList<IDTag> songList = null;
 
                         switch (tabIndex) {
@@ -90,8 +86,9 @@ public class EarPhoneReceiver extends BroadcastReceiver {
                                 songList = ListGenerator.getRecentlyAddedList(context);
                                 break;
                             default:
-                                songList = null;
+                                songList = ListGenerator.getAllSongList(context);
                         }
+                        AwesomePlayer.instance.initMusicPlayer();
                         AwesomePlayer.instance.setSongs(songList);
                         AwesomePlayer.instance.setSongIndex(songIndex);
                         AwesomePlayer.instance.playSong();
