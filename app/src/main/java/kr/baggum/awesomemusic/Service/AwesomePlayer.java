@@ -20,17 +20,27 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import kr.baggum.awesomemusic.Data.IDTag;
-import kr.baggum.awesomemusic.Helper.AwesomeDBHelper;
-import kr.baggum.awesomemusic.R;
-import kr.baggum.awesomemusic.UI.Activity.LockScreenActivity;
-import kr.baggum.awesomemusic.UI.Activity.MainActivity;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
+
+import kr.baggum.awesomemusic.Data.IDTag;
+import kr.baggum.awesomemusic.Helper.AwesomeDBHelper;
+import kr.baggum.awesomemusic.R;
+import kr.baggum.awesomemusic.UI.Activity.LockScreenActivity;
+import kr.baggum.awesomemusic.UI.Activity.MainActivity;
 
 
 public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
@@ -201,9 +211,31 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
 
             Uri trackUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(songId));
             player.setDataSource(getApplicationContext(), trackUri);   //get song data from the source
-            player.prepareAsync();          // onPrepared will be called when the music player is prepared to play
+            player.prepareAsync();          // onPrepared will be calle musicMetadataSet = new MyID3().read(mf);
+
+
+            //test for lyric
+            AudioFile f = AudioFileIO.read(new File(playsong.path));
+            Tag tag = f.getTag();
+
+            String lyric = tag.getFirst(FieldKey.LYRICS);
+
+            if(lyric == "")
+                lyric = "no lyric";
+
+            Log.d("ll",lyric);
+
+
         } catch (IOException e) {
             Log.e("aaa", "Error : AWESOME PLAYER - setting data source");
+            e.printStackTrace();
+        } catch (TagException e) {
+            e.printStackTrace();
+        } catch (ReadOnlyFileException e) {
+            e.printStackTrace();
+        } catch (CannotReadException e) {
+            e.printStackTrace();
+        } catch (InvalidAudioFrameException e) {
             e.printStackTrace();
         }
 

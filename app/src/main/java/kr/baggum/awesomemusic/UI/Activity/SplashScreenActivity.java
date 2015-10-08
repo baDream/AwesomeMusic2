@@ -40,6 +40,8 @@ public class SplashScreenActivity extends Activity {
         }, 500);
     }
 
+
+
     private void initDB(){
         SQLiteDatabase db = UserDB.getInstance(getApplicationContext()).getDatabase();
 
