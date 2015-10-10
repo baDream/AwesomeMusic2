@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -164,8 +165,12 @@ public class MainActivity extends ActionBarActivity {
                 mPrevButton.setClickable(true);
                 mPlayPauseButton.setClickable(true);
                 mNextButton.setClickable(true);
+                mPlayImgViewMain.setClickable(true);
+
                 mMainMusicSeekBar.setEnabled(true);
                 mSoundSeekBar.setEnabled(true);
+                mLyricView.setMovementMethod(new ScrollingMovementMethod());
+
             }
 
             @Override
@@ -173,8 +178,13 @@ public class MainActivity extends ActionBarActivity {
                 mPrevButton.setClickable(false);
                 mPlayPauseButton.setClickable(false);
                 mNextButton.setClickable(false);
+                mPlayImgViewMain.setClickable(false);
+
                 mMainMusicSeekBar.setEnabled(false);
                 mSoundSeekBar.setEnabled(false);
+                mLyricView.setMovementMethod(null);
+
+
             }
         });
 
@@ -1106,6 +1116,9 @@ public class MainActivity extends ActionBarActivity {
         mSoundSeekBar.setMax(am.getStreamMaxVolume(StreamType));
         //set Progress
         mSoundSeekBar.setProgress(am.getStreamVolume(StreamType));
+
+        mLyricView.setMovementMethod(new ScrollingMovementMethod());
+
     }
 
     public void setSeekbarChangeListener() {
