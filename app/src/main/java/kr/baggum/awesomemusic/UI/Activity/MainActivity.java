@@ -169,6 +169,7 @@ public class MainActivity extends ActionBarActivity {
 
                 mMainMusicSeekBar.setEnabled(true);
                 mSoundSeekBar.setEnabled(true);
+                mLyricView.setClickable(true);
                 mLyricView.setMovementMethod(new ScrollingMovementMethod());
 
             }
@@ -180,6 +181,7 @@ public class MainActivity extends ActionBarActivity {
                 mNextButton.setClickable(false);
                 mPlayImgViewMain.setClickable(false);
 
+                mLyricView.setClickable(false);
                 mMainMusicSeekBar.setEnabled(false);
                 mSoundSeekBar.setEnabled(false);
                 mLyricView.setMovementMethod(null);
@@ -923,6 +925,17 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void setPlayViewButton() {
+
+        mLyricView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mLyricView.getVisibility()== View.VISIBLE)
+                    mLyricView.setVisibility(View.GONE);
+                else
+                    mLyricView.setVisibility(View.VISIBLE);
+
+            }
+        });
 
         mPlayImgViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
