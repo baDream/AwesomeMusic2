@@ -67,14 +67,6 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/play_imageView_blur"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:src="@drawable/background_blur"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
-
                 <!--text - song text view -->
                 <TextView
                     android:id="@+id/play_LyricView"
@@ -87,8 +79,16 @@
                     android:gravity="center"
                     android:scrollbars="vertical"
                     android:textColor="#FFFFFF"
-                    android:background="#90000000"/>
+                    android:background="#90000000"
+                    />
 
+                <ImageView
+                    android:id="@+id/play_imageView_blur"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/background_blur"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"/>
 
                 <ImageView
                     android:id="@+id/play_imageView_main"
