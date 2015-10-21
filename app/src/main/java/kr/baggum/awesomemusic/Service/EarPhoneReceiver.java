@@ -23,8 +23,9 @@ public class EarPhoneReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Log.i("abcd", "didit?");
         if( Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
+            Log.i("abcd", "did did?");
             KeyEvent keyEvent = (KeyEvent) intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
             if( keyEvent == null ) return ;
 

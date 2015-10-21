@@ -67,21 +67,6 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <!--text - song text view -->
-                <TextView
-                    android:id="@+id/play_LyricView"
-                    android:layout_width="fill_parent"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="50dp"
-
-                    android:layout_height="430dp"
-                    android:elevation="50dp"
-                    android:gravity="center"
-                    android:scrollbars="vertical"
-                    android:textColor="#FFFFFF"
-                    android:background="#90000000"
-                    />
-
                 <ImageView
                     android:id="@+id/play_imageView_blur"
                     android:layout_width="fill_parent"
@@ -99,6 +84,21 @@
                     android:src="@drawable/ic_no_album_hd"
                     android:scaleType="fitStart"
                     android:elevation="8dp"/>
+
+                <!--text - song text view -->
+                <TextView
+                    android:id="@+id/play_LyricView"
+                    android:layout_width="fill_parent"
+                    android:layout_gravity="top|center"
+                    android:layout_marginTop="50dp"
+
+                    android:layout_height="430dp"
+                    android:elevation="50dp"
+                    android:gravity="center"
+                    android:scrollbars="vertical"
+                    android:textColor="#FFFFFF"
+                    android:background="#90000000"
+                    />
 
                 <ImageView
                     android:layout_width="30dp"
