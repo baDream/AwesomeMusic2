@@ -362,11 +362,10 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             intentFilter.addAction("next");
             intentFilter.addAction("prev");
             IntentFilter intentFilter2 = new IntentFilter();
-            intentFilter2.addAction(Intent.ACTION_MEDIA_BUTTON);
             intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
-            intentFilter2.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY+999999999);
+            intentFilter2.setPriority(1000);
 
-            mediaButton = new ComponentName(getPackageName(), HeadSetPlugReceiver.class.getName());
+            mediaButton = new ComponentName(getPackageName(), EarPhoneReceiver.class.getName());
             am = (AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             am.registerMediaButtonEventReceiver(mediaButton);
 
