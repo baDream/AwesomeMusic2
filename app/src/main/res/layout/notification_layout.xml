@@ -1,4 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/noti1"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="64dip"
+    android:background="@color/primary_background_inverted">
+    <ImageView
+        android:id="@+id/album_art2"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:adjustViewBounds="false"
+        android:scaleType="centerInside"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_small"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/song_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/primary_textcolor_inverted"
+            android:textSize="@dimen/text_size_large"/>
+
+        <TextView
+            android:id="@+id/artist_name2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/secondary_textcolor_inverted"
+            android:textSize="@dimen/text_size_small"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/notiPlay"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
+        android:src="@drawable/ic_player_play_light"
+        android:background="@drawable/selectable_background"/>
+    <ImageView
+        android:id="@+id/notiNext"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
+        android:src="@drawable/ic_player_next_light"
+        android:background="@drawable/selectable_background"/>
+    <ImageView
+        android:id="@+id/notiExit"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
+        android:src="@drawable/ic_player_exit_light"
+        android:background="@drawable/selectable_background"/>
+</LinearLayout>
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -93,3 +161,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+-->

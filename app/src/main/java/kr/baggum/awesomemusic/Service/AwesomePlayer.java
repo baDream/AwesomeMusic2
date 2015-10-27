@@ -223,10 +223,12 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     public String getLyric(){
         //test for lyric
         try {
+            if( songs == null || songs.size()<=songPos) return "no lyric";
             IDTag playsong = songs.get(songPos);
             AudioFile f = AudioFileIO.read(new File(playsong.path));
             Tag tag = f.getTag();
 
+            if( tag==null) return "no lyric";
             String lyric = tag.getFirst(FieldKey.LYRICS);
 
             if(lyric == "")
@@ -349,6 +351,10 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
                             isSongChanged=true;
                         }
                         updateUIActivity();
+                    }else if( intent.getAction().equals("exit") ){
+                        Log.i("aaa", "didit???");
+                        AwesomePlayer.instance.stopNoti();
+                        AwesomePlayer.instance.updateUInotNoti();
                     }
                     else{
 
@@ -361,6 +367,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             intentFilter.addAction("play");
             intentFilter.addAction("next");
             intentFilter.addAction("prev");
+            intentFilter.addAction("exit");
             IntentFilter intentFilter2 = new IntentFilter();
             intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
             intentFilter2.setPriority(1000);
@@ -421,24 +428,25 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(this, 0, intent2, 0);
         Intent intent3 = new Intent("prev");
         PendingIntent pendingIntent3 = PendingIntent.getBroadcast(this, 0, intent3, 0);
-        Intent intent4 = new Intent("noti");
+        Intent intent4 = new Intent("exit");
         PendingIntent pendingIntent4 = PendingIntent.getBroadcast(this, 0, intent4, 0);
 
         contentiew = new RemoteViews(getPackageName(), R.layout.notification_layout);
         contentiew.setOnClickPendingIntent(R.id.notiPlay, pendingIntent1);
         contentiew.setOnClickPendingIntent(R.id.notiNext, pendingIntent2);
-        contentiew.setOnClickPendingIntent(R.id.notiPrev, pendingIntent3);
+        //contentiew.setOnClickPendingIntent(R.id.notiPrev, pendingIntent3);
+        contentiew.setOnClickPendingIntent(R.id.notiExit, pendingIntent4);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         noti.flags = Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT;
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         contentiew.setOnClickPendingIntent(R.id.noti1, pendingIntent);
-        contentiew.setOnClickPendingIntent(R.id.noti2, pendingIntent);
+        //contentiew.setOnClickPendingIntent(R.id.noti2, pendingIntent);
 
         if( !isPlaying() ) {
-            contentiew.setImageViewResource(R.id.notiPlay, R.drawable.ic_play_circle_outline_white_24dp);
+            contentiew.setImageViewResource(R.id.notiPlay, R.drawable.ic_player_play_light);
         }else{
-            contentiew.setImageViewResource(R.id.notiPlay, R.drawable.ic_pause_circle_outline_white_24dp);
+            contentiew.setImageViewResource(R.id.notiPlay, R.drawable.ic_player_pause_light);
         }
 
         Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");

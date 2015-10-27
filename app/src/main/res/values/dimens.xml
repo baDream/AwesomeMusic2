@@ -6,4 +6,67 @@
     <dimen name="divider">1dp</dimen>
     <dimen name="leftmargin">1dp</dimen>
     <dimen name="rightmargin">1dp</dimen>
+
+
+    <dimen name="padding_supersmall">2dp</dimen>
+    <dimen name="padding_verysmall">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_superlarge">24dp</dimen>
+    <dimen name="padding_extralarge">32dp</dimen>
+    <dimen name="padding_megalarge">48dp</dimen>
+
+    <dimen name="row_height_small">16dp</dimen>
+    <dimen name="row_height_medium">32dp</dimen>
+    <dimen name="row_height_large">48dp</dimen>
+    <dimen name="row_height_verylarge">64dp</dimen>
+
+    <dimen name="menu_item_height">32dp</dimen>
+    <dimen name="menu_item_height_userprofile">48dp</dimen>
+
+    <dimen name="selector_icon_height">24dp</dimen>
+
+    <dimen name="context_menu_icon_height">24dp</dimen>
+
+    <dimen name="show_context_menu_icon_height">48dp</dimen>
+    <dimen name="show_context_menu_icon_height_more">16dp</dimen>
+
+    <dimen name="header_spinner_height">48dp</dimen>
+    <dimen name="header_clear_space_nonscrollable_static">104dp</dimen>
+    <dimen name="header_clear_space_nonscrollable_static_user">144dp</dimen>
+    <dimen name="header_clear_space_nonscrollable">120dp</dimen>
+    <dimen name="header_clear_space_nonscrollable_selector">72dp</dimen>
+    <dimen name="header_clear_space_nonscrollable_playback">200dp</dimen>
+    <dimen name="header_clear_space_scrollable">208dp</dimen>
+    <dimen name="header_roundedimage_height">48dp</dimen>
+    <dimen name="header_following_height">32dp</dimen>
+
+    <dimen name="divider_height_thick">2dp</dimen>
+    <dimen name="divider_height_verythick">5dp</dimen>
+
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_verylarge">22sp</dimen>
+
+    <dimen name="pager_indicator_height">32dp</dimen>
+
+    <dimen name="player_button_size_repeatshuffle">32dp</dimen>
+    <dimen name="player_button_size_default">48dp</dimen>
+
+    <dimen name="list_item_track_height">56dp</dimen>
+    <dimen name="list_item_swipe_menu_button_size">38dp</dimen>
+    <dimen name="list_item_resolver_icon_size">16dp</dimen>
+
+    <dimen name="playback_panel_height">64dp</dimen>
+    <dimen name="playback_clear_space_bottom">128dp</dimen>
+    <dimen name="playback_panel_resolver_icon_size">12dp</dimen>
+    <dimen name="playback_panel_thumb_height">48dp</dimen>
+
+    <dimen name="directory_chooser_arrow_size">16dp</dimen>
+
+    <dimen name="grid_item_resolver_icon_size">48dp</dimen>
+
 </resources>
