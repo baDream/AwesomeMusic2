@@ -182,6 +182,8 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
                 }
 //                    Log.d("aaa",index + "th song is selected");
             });
+
+            //itemView.setOnLongClickListener();
         }
     }
 }
