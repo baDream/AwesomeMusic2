@@ -37,6 +37,15 @@
             android:textSize="@dimen/text_size_small"/>
     </LinearLayout>
     <ImageView
+        android:id="@+id/notiPrev"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
+        android:src="@drawable/ic_player_previous_light"
+        android:background="@drawable/selectable_background"/>
+    <ImageView
         android:id="@+id/notiPlay"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

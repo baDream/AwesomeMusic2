@@ -434,7 +434,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         contentiew = new RemoteViews(getPackageName(), R.layout.notification_layout);
         contentiew.setOnClickPendingIntent(R.id.notiPlay, pendingIntent1);
         contentiew.setOnClickPendingIntent(R.id.notiNext, pendingIntent2);
-        //contentiew.setOnClickPendingIntent(R.id.notiPrev, pendingIntent3);
+        contentiew.setOnClickPendingIntent(R.id.notiPrev, pendingIntent3);
         contentiew.setOnClickPendingIntent(R.id.notiExit, pendingIntent4);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
