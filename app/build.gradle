@@ -33,6 +33,7 @@ dependencies {
     compile 'com.yqritc:recyclerview-flexibledivider:1.2.5'
     compile 'jp.wasabeef:picasso-transformations:1.0.5'
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.2.3'
+    compile 'com.cocosw:bottomsheet:1.+@aar'
     compile files('libs/jaudiotagger-2.2.4.jar')
     compile files('libs/myid3.jar')
 }

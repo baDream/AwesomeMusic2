@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/titleEdit" android:title="@string/titleedit" android:icon="@drawable/ic_action_music_mint"/>
+    <item android:id="@+id/artistEdit" android:title="@string/artistedit" android:icon="@drawable/ic_artist3"/>
+    <item android:id="@+id/albumEdit" android:title="@string/albumedit" android:icon="@drawable/ic_action_album_mint"/>
+    <item android:id="@+id/lyricEdit" android:title="@string/lyricedit" android:icon="@drawable/ic_action_list_mint"/>
+</menu>

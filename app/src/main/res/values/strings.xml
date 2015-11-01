@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Awesome Music</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="titleedit">Title Edit</string>
+    <string name="artistedit">Artist Edit</string>
+    <string name="albumedit">Album Edit</string>
+    <string name="lyricedit">Lyric Edit</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_fragment">FragmentActivity</string>
     <string name="title_activity_frag">FragActivity</string>

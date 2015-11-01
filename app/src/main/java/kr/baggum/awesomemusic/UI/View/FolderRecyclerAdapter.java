@@ -1,20 +1,29 @@
 package kr.baggum.awesomemusic.UI.View;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.baggum.awesomemusic.Data.IDTag;
 import kr.baggum.awesomemusic.Data.SongDirectoryTree;
 import kr.baggum.awesomemusic.R;
 import kr.baggum.awesomemusic.UI.Activity.MainActivity;
+import kr.baggum.awesomemusic.UI.library.EditDialog;
+
+import com.cocosw.bottomsheet.BottomSheet;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,7 +33,7 @@ import java.util.ArrayList;
  */
 public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAdapter.ViewHolder> {
 
-    private Context mContext;
+    public Context mContext;
     public ArrayList<SongDirectoryTree> backupTree;   //이전 폴더
     public SongDirectoryTree directoryTree;            //현재 폴더
     private SongDirectoryTree fullDirectoryTree;        //used for tree traverse
@@ -149,6 +158,7 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
         public ImageView albumArt;
         public TextView songTitle;
         public TextView artistName;
+        private EditDialog dialog;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -183,7 +193,29 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
 //                    Log.d("aaa",index + "th song is selected");
             });
 
-            //itemView.setOnLongClickListener();
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int selectedIndex = getAdapterPosition();
+                    Log.d("aaa", "folder size : " + folderList.size());
+                    if (songList != null)
+                        Log.d("aaa,", ", songS : " + songList.size());
+                    if (selectedIndex < folderList.size()) {
+                        // folder is selected
+                        backupTree.add(directoryTree);
+                        directoryTree = folderList.get(0).getTree(folderList.get(getAdapterPosition()));
+                        folderList = directoryTree.nextTree;
+                        songList = directoryTree.musicData;
+                        notifyDataSetChanged();
+
+                    } else {
+                        // song is selected
+                        dialog = new EditDialog(mContext);
+                        dialog.openDialog();
+                    }
+                    return true;
+                }
+            });
         }
     }
 }

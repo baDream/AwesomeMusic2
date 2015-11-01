@@ -15,6 +15,8 @@ import android.widget.TextView;
 import kr.baggum.awesomemusic.Data.IDTag;
 import kr.baggum.awesomemusic.R;
 import kr.baggum.awesomemusic.UI.Activity.MainActivity;
+import kr.baggum.awesomemusic.UI.library.EditDialog;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -77,6 +79,7 @@ public class TitleRecyclerAdapter extends RecyclerView.Adapter<TitleRecyclerAdap
         public ImageView albumArt;
         public TextView songTitle;
         public TextView artistName;
+        private EditDialog dialog;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -86,20 +89,28 @@ public class TitleRecyclerAdapter extends RecyclerView.Adapter<TitleRecyclerAdap
 
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    // song is selected
+                    dialog = new EditDialog(mContext);
+                    dialog.openDialog();
+                    return true;
+                }
+            });
         }
 
 
         @Override
         public void onClick(View v) {
             //set click listener to each song item
-
-
             //pass this event to UI (activity)
             ((MainActivity)mContext).songPicked(list, getAdapterPosition());
-
             //TODO Error happened..
             //java.lang.ClassCastException: android.app.Application cannot be cast to com.example.user.awesomemusic.UI.Activity.MainActivity
         }
+
     }
 
 }
