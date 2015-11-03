@@ -375,14 +375,14 @@ public class MainActivity extends ActionBarActivity {
 
             slidingPanelLayout.openPane();
 
-            mLyricView.setVisibility(View.VISIBLE);
+            mLyricView.setScrollY(0);
             mLyricView.setText(AwesomePlayer.instance.getLyric());
+
 
             //껏다켯을때 버튼 상태들
             stateButton();
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -465,7 +465,10 @@ public class MainActivity extends ActionBarActivity {
         updateMiniPlayView(currentSongTag);
         setPlayActivity(currentSongTag);
         slidingPanelLayout.openPane();
+
+        mLyricView.setScrollY(0);
         mLyricView.setText(AwesomePlayer.instance.getLyric());
+
 
         //버튼상태 변경
         stateButton();
