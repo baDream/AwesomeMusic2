@@ -207,7 +207,6 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
                         folderList = directoryTree.nextTree;
                         songList = directoryTree.musicData;
                         notifyDataSetChanged();
-
                     } else {
                         // song is selected
                         dialog = new EditDialog(mContext);

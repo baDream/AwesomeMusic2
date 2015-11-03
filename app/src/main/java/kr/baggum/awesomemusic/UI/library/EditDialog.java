@@ -26,15 +26,14 @@ public class EditDialog {
     private Dialog mBottomSheetDialog;
 
     public EditDialog(Context context){
-        View view = LayoutInflater.from(mContext).inflate (R.layout.bottom_sheet, null);
+        mContext = context;
+        view = LayoutInflater.from(mContext).inflate (R.layout.bottom_sheet, null);
         title = (TextView)view.findViewById( R.id.titleEdit);
         artist = (TextView)view.findViewById( R.id.artistEdit);
         album = (TextView)view.findViewById( R.id.albumEdit);
         lyric = (TextView)view.findViewById( R.id.lyricEdit);
 
         mBottomSheetDialog = new Dialog (mContext, R.style.MaterialDialogSheet);
-
-        mContext = context;
     }
 
     public void openDialog(){
