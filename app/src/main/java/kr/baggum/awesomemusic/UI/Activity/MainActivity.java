@@ -29,6 +29,14 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.squareup.picasso.Transformation;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 import kr.baggum.awesomemusic.Data.IDTag;
 import kr.baggum.awesomemusic.Data.ListGenerator;
 import kr.baggum.awesomemusic.Data.UserDB;
@@ -44,14 +52,6 @@ import kr.baggum.awesomemusic.UI.View.TimeLineRecyclerAdapter;
 import kr.baggum.awesomemusic.UI.View.TitleRecyclerAdapter;
 import kr.baggum.awesomemusic.UI.library.MarqueeText;
 import kr.baggum.awesomemusic.UI.library.SlidingDownPanelLayout;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-import com.squareup.picasso.Transformation;
-
-import java.text.NumberFormat;
-import java.util.ArrayList;
-
-import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -577,7 +577,7 @@ public class MainActivity extends ActionBarActivity {
                 int currentPos = 0;
                 Log.d("aaa", "# of thread : " + Thread.activeCount());
 //                Log.d("aaa","thread : " + Thread.currentThread());
-                while (isActivityVisible) {
+                while (true) {
                     try {
                         if (AwesomePlayer.instance != null && AwesomePlayer.instance.isPlaying()) {
                             mMainMusicSeekBar.setMax(AwesomePlayer.instance.getDur());
@@ -604,7 +604,6 @@ public class MainActivity extends ActionBarActivity {
                     }
 
                 }
-//                Log.d("aaa","seek thread dead : "+ Thread.currentThread());
             }
         };
 
