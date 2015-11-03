@@ -189,16 +189,6 @@ public class MainActivity extends ActionBarActivity {
         //slidingPanelLayout.setSliderFadeColor(Color.argb(128, 0, 0, 0));
         //slidingPanelLayout.setParallaxDistance(100);
 
-        mPrevButton.setClickable(false);
-        mPlayPauseButton.setClickable(false);
-        mNextButton.setClickable(false);
-        mPlayImgViewMain.setClickable(false);
-
-        mLyricView.setClickable(false);
-        mMainMusicSeekBar.setEnabled(false);
-        mSoundSeekBar.setEnabled(false);
-        mLyricView.setMovementMethod(null);
-
         slidingPanelLayout.setPanelSlideListener(new SlidingDownPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {

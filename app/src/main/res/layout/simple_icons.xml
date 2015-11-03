@@ -98,6 +98,7 @@
                     android:scrollbars="vertical"
                     android:textColor="#FFFFFF"
                     android:background="#90000000"
+                    android:textSize="18dp"
                     />
 
                 <ImageView
