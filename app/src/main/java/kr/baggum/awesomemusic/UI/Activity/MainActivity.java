@@ -130,66 +130,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_icons);
 
-        //actionbar hide(); you can change actionbar at here! by Jun
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.hide();
-
-//        //change the image color to transparency. by jun
-//        Drawable alpha = ((ImageView)findViewById(R.id.mini_play_view_albumart)).getDrawable();
-//        alpha.setAlpha(50);   this.g
-
-        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
-
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
-
-        mPager.setOffscreenPageLimit(9);
-
-        mIndicator = (IconPageIndicator) findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);
-
-        //sliding Layout
-        slidingPanelLayout = (SlidingDownPanelLayout) findViewById(R.id.sliding_layout);
-
-        //slidingPanelLayout.setSliderFadeColor(Color.argb(128, 0, 0, 0));
-        //slidingPanelLayout.setParallaxDistance(100);
-
-        slidingPanelLayout.setPanelSlideListener(new SlidingDownPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-            }
-
-            @Override
-            public void onPanelOpened(View panel) {
-                init();
-                mPrevButton.setClickable(true);
-                mPlayPauseButton.setClickable(true);
-                mNextButton.setClickable(true);
-                mPlayImgViewMain.setClickable(true);
-
-                mMainMusicSeekBar.setEnabled(true);
-                mSoundSeekBar.setEnabled(true);
-                mLyricView.setClickable(true);
-                mLyricView.setMovementMethod(new ScrollingMovementMethod());
-
-            }
-
-            @Override
-            public void onPanelClosed(View panel) {
-                mPrevButton.setClickable(false);
-                mPlayPauseButton.setClickable(false);
-                mNextButton.setClickable(false);
-                mPlayImgViewMain.setClickable(false);
-
-                mLyricView.setClickable(false);
-                mMainMusicSeekBar.setEnabled(false);
-                mSoundSeekBar.setEnabled(false);
-                mLyricView.setMovementMethod(null);
-
-
-            }
-        });
-
         //get UI components in mini play view
         ivAlbumArt = (ImageView) findViewById(R.id.mini_play_view_albumart);
         tvTitle = (MarqueeText) findViewById(R.id.mini_play_view_title);
@@ -197,15 +137,6 @@ public class MainActivity extends ActionBarActivity {
         seekBar = (SeekBar) findViewById(R.id.mini_play_view_seekbar);
         mMainMusicSeekBar = (SeekBar) findViewById(R.id.mini_play_view_seekbar2);
         mSoundSeekBar = (SeekBar) findViewById(R.id.mini_sound_seekBar);
-
-        tvTitle.setSingleLine(true);
-        tvTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        tvTitle.setMarqueeRepeatLimit(-1);
-
-        tvArtist.setSingleLine(true);
-        tvArtist.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        tvArtist.setMarqueeRepeatLimit(-1);
-
 
         mLyricView = (TextView) findViewById(R.id.play_LyricView);
 
@@ -233,6 +164,81 @@ public class MainActivity extends ActionBarActivity {
         //Seekbar Time
         SeekbarMaxTime = (TextView) findViewById(R.id.SeekbarMaxTime);
         SeekbarProcessTime = (TextView) findViewById(R.id.SeekbarProcessTime);
+
+        //actionbar hide(); you can change actionbar at here! by Jun
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.hide();
+
+//        //change the image color to transparency. by jun
+//        Drawable alpha = ((ImageView)findViewById(R.id.mini_play_view_albumart)).getDrawable();
+//        alpha.setAlpha(50);   this.g
+
+        mAdapter = new TestFragmentAdapter(getSupportFragmentManager());
+
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(mAdapter);
+
+        mPager.setOffscreenPageLimit(9);
+
+        mIndicator = (IconPageIndicator) findViewById(R.id.indicator);
+        mIndicator.setViewPager(mPager);
+
+        //sliding Layout
+        slidingPanelLayout = (SlidingDownPanelLayout) findViewById(R.id.sliding_layout);
+
+        //slidingPanelLayout.setSliderFadeColor(Color.argb(128, 0, 0, 0));
+        //slidingPanelLayout.setParallaxDistance(100);
+
+        mPrevButton.setClickable(false);
+        mPlayPauseButton.setClickable(false);
+        mNextButton.setClickable(false);
+        mPlayImgViewMain.setClickable(false);
+
+        mLyricView.setClickable(false);
+        mMainMusicSeekBar.setEnabled(false);
+        mSoundSeekBar.setEnabled(false);
+        mLyricView.setMovementMethod(null);
+
+        slidingPanelLayout.setPanelSlideListener(new SlidingDownPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+            }
+
+            @Override
+            public void onPanelOpened(View panel) {
+                init();
+                mPrevButton.setClickable(true);
+                mPlayPauseButton.setClickable(true);
+                mNextButton.setClickable(true);
+                mPlayImgViewMain.setClickable(true);
+
+                mMainMusicSeekBar.setEnabled(true);
+                mSoundSeekBar.setEnabled(true);
+                mLyricView.setClickable(true);
+                mLyricView.setMovementMethod(new ScrollingMovementMethod());
+            }
+
+            @Override
+            public void onPanelClosed(View panel) {
+                mPrevButton.setClickable(false);
+                mPlayPauseButton.setClickable(false);
+                mNextButton.setClickable(false);
+                mPlayImgViewMain.setClickable(false);
+
+                mLyricView.setClickable(false);
+                mMainMusicSeekBar.setEnabled(false);
+                mSoundSeekBar.setEnabled(false);
+                mLyricView.setMovementMethod(null);
+            }
+        });
+
+        tvTitle.setSingleLine(true);
+        tvTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvTitle.setMarqueeRepeatLimit(-1);
+
+        tvArtist.setSingleLine(true);
+        tvArtist.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tvArtist.setMarqueeRepeatLimit(-1);
 
         mMainName.setSingleLine(true);
         mMainName.setEllipsize(TextUtils.TruncateAt.MARQUEE);
