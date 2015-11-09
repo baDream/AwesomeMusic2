@@ -5,11 +5,13 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.baggum.awesomemusic.R;
+import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by user on 15. 10. 30.
@@ -24,6 +26,7 @@ public class EditDialog {
     private Context mContext;
 
     private Dialog mBottomSheetDialog;
+    private MaterialDialog mMaterialDialog;
 
     public EditDialog(Context context){
         mContext = context;
@@ -34,6 +37,22 @@ public class EditDialog {
         lyric = (TextView)view.findViewById( R.id.lyricEdit);
 
         mBottomSheetDialog = new Dialog (mContext, R.style.MaterialDialogSheet);
+
+        mMaterialDialog = new MaterialDialog(mContext)
+                .setTitle("MaterialDialog")
+                .setMessage("Hello world!")
+                .setPositiveButton("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                })
+                .setNegativeButton("CANCEL", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                });
     }
 
     public void openDialog(){
@@ -48,7 +67,19 @@ public class EditDialog {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked Backup", Toast.LENGTH_SHORT).show();
+
+
+                mMaterialDialog.show();
+
+                EditText contentView = new EditText(mContext);
+                mMaterialDialog.setView(contentView);
+                mMaterialDialog.show();
+
+                // You can change the message anytime. before show
+                mMaterialDialog.setTitle("提示");
+                mMaterialDialog.show();
+                // You can change the message anytime. after show
+                mMaterialDialog.setMessage("你好，世界~");
                 mBottomSheetDialog.dismiss();
             }
         });

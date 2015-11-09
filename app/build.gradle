@@ -9,8 +9,8 @@ android {
         applicationId "kr.baggum.awesomemusic"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 2
-        versionName "1.1"
+        versionCode 7
+        versionName "CLICKCLICK"
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
     }
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.cocosw:bottomsheet:1.+@aar'
     compile files('libs/jaudiotagger-2.2.4.jar')
     compile files('libs/myid3.jar')
+    compile 'me.drakeet.materialdialog:library:1.2.2'
 }
