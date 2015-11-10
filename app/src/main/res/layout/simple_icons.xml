@@ -99,6 +99,7 @@
                     android:textColor="#FFFFFF"
                     android:background="#90000000"
                     android:textSize="18dp"
+                    android:clickable="false"
                     />
 
                 <ImageView

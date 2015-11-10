@@ -313,6 +313,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 //ToDo 옵션불러오기
                 loadOption();
+
             }
 
             @Override
@@ -329,6 +330,17 @@ public class MainActivity extends ActionBarActivity {
         if (AwesomePlayer.instance != null) {
             runSeekBarThread(SEEKBAR_TIME_SLICE);
         }
+
+            mPrevButton.setClickable(false);
+            mPlayPauseButton.setClickable(false);
+            mNextButton.setClickable(false);
+            mPlayImgViewMain.setClickable(false);
+
+            mLyricView.setClickable(false);
+            mMainMusicSeekBar.setEnabled(false);
+            mSoundSeekBar.setEnabled(false);
+            mLyricView.setMovementMethod(null);
+
     }
 
     @Override
@@ -676,6 +688,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             default:
                 list = ListGenerator.getAllSongList(getApplicationContext());
+                list = ListGenerator.getAllSongList(getApplicationContext());
         }
 
         AwesomePlayer.instance.setSongs(list);
@@ -885,10 +898,20 @@ public class MainActivity extends ActionBarActivity {
 //                if (llm != null)
 //                    llm.scrollToPositionWithOffset(songIndex, 400); // TODO offset hardcoded
 
-                slidingPanelLayout.openPane();
 
+                slidingPanelLayout.openPane();
+                // if it has lastsongdata  you have to clickable.
+                mPrevButton.setClickable(true);
+                mPlayPauseButton.setClickable(true);
+                mNextButton.setClickable(true);
+                mPlayImgViewMain.setClickable(true);
+
+                mMainMusicSeekBar.setEnabled(true);
+                mSoundSeekBar.setEnabled(true);
+                mLyricView.setClickable(true);
+                mLyricView.setMovementMethod(new ScrollingMovementMethod());
             } else {
-                //no operation
+
             }
 
             mIndicator.onPageSelected(tabIndex);
