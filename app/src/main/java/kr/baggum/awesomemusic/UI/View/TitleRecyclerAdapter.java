@@ -95,7 +95,7 @@ public class TitleRecyclerAdapter extends RecyclerView.Adapter<TitleRecyclerAdap
                 public boolean onLongClick(View v) {
                     // song is selected
                     dialog = new EditDialog(mContext);
-                    dialog.openDialog();
+                    dialog.openDialog(list.get(getAdapterPosition()).path);
                     return true;
                 }
             });

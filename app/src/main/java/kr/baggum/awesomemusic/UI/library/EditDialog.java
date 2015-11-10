@@ -37,18 +37,16 @@ public class EditDialog {
     private Dialog mBottomSheetDialog;
     private MaterialDialog mMaterialDialog;
 
+    public TextView titleEdit;
+    public TextView artistEdit;
+    public TextView albumEdit;
 
-    private TextView titleEdit;
-    private TextView artistEdit;
-    private TextView albumEdit;
-
+    public IDTag tag;
 
     public EditDialog(Context context){
         mContext = context;
         view = LayoutInflater.from(mContext).inflate (R.layout.bottom_sheet, null);
         title = (TextView)view.findViewById( R.id.titleEdit);
-        artist = (TextView)view.findViewById( R.id.artistEdit);
-        album = (TextView)view.findViewById( R.id.albumEdit);
         lyric = (TextView)view.findViewById( R.id.lyricEdit);
 
         mBottomSheetDialog = new Dialog (mContext, R.style.MaterialDialogSheet);
@@ -77,33 +75,24 @@ public class EditDialog {
         mBottomSheetDialog.getWindow ().setGravity (Gravity.BOTTOM);
         mBottomSheetDialog.show ();
 
+        tag = setMetadataFromFileName(path);
 
         title.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
                 View contentView = LayoutInflater.from(mContext).inflate (R.layout.dialog_layout, null);
+
+                titleEdit = (TextView)contentView.findViewById(R.id.titleEdit);
+                artistEdit = (TextView)contentView.findViewById(R.id.artistEdit);
+                albumEdit = (TextView)contentView.findViewById(R.id.albumEdit);
+
+                titleEdit.setText(tag.title);
+                artistEdit.setText(tag.artist);
+                albumEdit.setText(tag.album);
+
                 mMaterialDialog.setView(contentView);
                 mMaterialDialog.show();
-                mBottomSheetDialog.dismiss();
-            }
-        });
-
-        artist.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked Detail", Toast.LENGTH_SHORT).show();
-                mBottomSheetDialog.dismiss();
-            }
-        });
-
-        album.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked Open", Toast.LENGTH_SHORT).show();
                 mBottomSheetDialog.dismiss();
             }
         });
@@ -116,6 +105,8 @@ public class EditDialog {
             }
         });
     }
+
+
 
 
     private IDTag setMetadataFromFileName(String path){
