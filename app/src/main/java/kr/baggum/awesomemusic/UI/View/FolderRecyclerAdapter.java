@@ -210,7 +210,7 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
                     } else {
                         // song is selected
                         dialog = new EditDialog(mContext);
-                        dialog.openDialog(songList.get(selectedIndex).);
+                        dialog.openDialog(songList.get(selectedIndex).path);
                     }
                     return true;
                 }
