@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -205,6 +206,9 @@ public class MainActivity extends ActionBarActivity {
                 mMainMusicSeekBar.setEnabled(true);
                 mSoundSeekBar.setEnabled(true);
                 mLyricView.setClickable(true);
+
+                mLyricView.setMaxLines(200);
+                mLyricView.setVerticalScrollBarEnabled(true);
                 mLyricView.setMovementMethod(new ScrollingMovementMethod());
             }
 
@@ -967,15 +971,31 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void setPlayViewButton() {
-        mLyricView.setOnClickListener(new View.OnClickListener() {
+
+        mLyricView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if(mLyricView.getVisibility()== View.VISIBLE)
-                    mLyricView.setVisibility(View.GONE);
-                else {
-                    mLyricView.setVisibility(View.VISIBLE);
-                    mLyricView.setText(AwesomePlayer.instance.getLyric());
+            public boolean onTouch(View v, MotionEvent event) {
+                float x=1 , y=1;
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    x = event.getX();
+                    y =event.getY();
+                    Log.e("test "+ event.getAction() + " "+  x," " +y);
                 }
+                if (event.getAction() == MotionEvent.ACTION_MOVE)Log.e("test "+ event.getAction() + " "+  event.getX()," " + event.getY());
+
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.e("test "+ event.getAction() + " ", "" + (x ) + " _ " + (y ));
+                    if (mLyricView.getVisibility() == View.VISIBLE)
+                        mLyricView.setVisibility(View.GONE);
+                    else {
+                        mLyricView.setVisibility(View.VISIBLE);
+                        mLyricView.setText(AwesomePlayer.instance.getLyric());
+                    }
+                }
+
+                return false;
             }
         });
 
