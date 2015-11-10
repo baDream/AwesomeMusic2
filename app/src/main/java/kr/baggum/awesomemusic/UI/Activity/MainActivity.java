@@ -382,6 +382,16 @@ public class MainActivity extends ActionBarActivity {
             ivAlbumArt.setImageAlpha(Color.argb(1, 0, 0, 0));
 
             slidingPanelLayout.openPane();
+            mPrevButton.setClickable(true);
+            mPlayPauseButton.setClickable(true);
+            mNextButton.setClickable(true);
+            mPlayImgViewMain.setClickable(true);
+
+            mMainMusicSeekBar.setEnabled(true);
+            mSoundSeekBar.setEnabled(true);
+            mLyricView.setClickable(true);
+            mLyricView.setMovementMethod(new ScrollingMovementMethod());
+
 
             mLyricView.setScrollY(0);
             mLyricView.setText(AwesomePlayer.instance.getLyric());
@@ -472,7 +482,18 @@ public class MainActivity extends ActionBarActivity {
 
         updateMiniPlayView(currentSongTag);
         setPlayActivity(currentSongTag);
+
         slidingPanelLayout.openPane();
+        mPrevButton.setClickable(true);
+        mPlayPauseButton.setClickable(true);
+        mNextButton.setClickable(true);
+        mPlayImgViewMain.setClickable(true);
+
+        mMainMusicSeekBar.setEnabled(true);
+        mSoundSeekBar.setEnabled(true);
+        mLyricView.setClickable(true);
+        mLyricView.setMovementMethod(new ScrollingMovementMethod());
+
 
         mLyricView.setScrollY(0);
         mLyricView.setText(AwesomePlayer.instance.getLyric());
