@@ -96,6 +96,7 @@
                     android:elevation="50dp"
                     android:gravity="center"
                     android:background="#90000000"
+                    android:clickable="true"
                     >
                         <TextView
                             android:id="@+id/play_LyricView"
