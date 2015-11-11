@@ -63,6 +63,7 @@ public class EditDialog {
                 .setPositiveButton("OK", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.i("aaa", "title : "+ idTag.title);
                         mMaterialDialog.dismiss();
                     }
                 })
@@ -123,82 +124,5 @@ public class EditDialog {
                 mBottomSheetDialog.dismiss();
             }
         });
-    }
-
-    private IDTag setMetadataFromFileName(String path){
-        File file = new File(path);         //path를 읽어 파일을 받아온다.
-        String fileName = path.substring(path.lastIndexOf('/') + 1);   //path경로에서 파일 제목만 가져온다.(ex. storage/Music/aaa.mp3 -> aaa.mp3 )
-        fileName = fileName.substring(0,fileName.lastIndexOf('.'));    //음원 확장자에서 음원 제목만 가져온다(ex. aaa.mp3 -> aaa )
-        MusicMetadataSet srcSet = null;
-
-        try {
-            srcSet = new MyID3().read(file);  //file에서 ID3 Tag(Metadata)를 읽어온다.
-        }catch(IOException io) {
-            Log.i("aaa", "IOException");
-            return new IDTag();
-        }
-
-        //ID3 Tag가 없을 경우 종료한다.
-        if(srcSet == null ) return new IDTag();
-
-        MusicMetadata meta = srcSet.merged;  //메타데이터 정보를 받아온다.
-        meta = setMetadata(meta,fileName);   //메타데이터 정보를 수정한다.
-
-        try{
-            new MyID3().update(file,srcSet,meta);   //파일에 수정한 정보를 적용한다.
-        }catch(UnsupportedEncodingException e){
-            Log.i("ERROR", "UnsupportedEncodingException");
-            e.printStackTrace();
-        }catch(ID3WriteException e){
-            Log.i("ERROR", "ID3WriteException");
-            e.printStackTrace();
-        }catch(IOException e){
-            Log.i("ERROR", "IOException");
-            e.printStackTrace();
-        }
-
-        return new IDTag(meta.getSongTitle(),meta.getArtist(),meta.getAlbum(),meta.getGenre());
-    }
-
-    /********************************************************************/
-    /*  setMetadataFromFileName에서 호출되는 메소드로 타이틀, 가수, 앨범명이    */
-    /*          비어있을 경우 Default인 unknown으로 초기화 시켜주거나          */
-    /*    (가수 - 제목) 형식의 파일명일 경우 그걸 뽑아와 메타데이터를 저장시켜준다. */
-    /*******************************************************************/
-    private MusicMetadata setMetadata(MusicMetadata iMusicMetadata, String fileName){
-        MusicMetadata meta = new MusicMetadata(fileName);
-        int idx = fileName.lastIndexOf("-");  //파일명에서 마지막으로 등장하는 -의 index를 찾는다.
-
-        String title = iMusicMetadata.getSongTitle();
-        String artist = iMusicMetadata.getArtist();
-        String album = iMusicMetadata.getAlbum();
-
-        //파일명에 -가 존재할 경우 (가수 - 제목) 형식으로 값을 뽑아와서 각 Metadata가 null일때 초기화해준다.
-        if( idx >= 0 ) {
-            if ( title == null) {
-                title = fileName.substring(idx+1);
-            }
-            if( artist == null){
-                artist = fileName.substring(0,idx);
-            }
-            if( album == null){
-                album = "unknown";
-            }
-        }else{ // (가수 - 제목) 형식이 아닐 경우 Metadata가 null이면 unknown으로 초기화해준다.
-            if ( title == null) {
-                title = fileName;
-            }
-            if( artist == null){
-                artist = "unknown";
-            }
-            if( album == null){
-                album = "unknown";
-            }
-        }
-        meta.setSongTitle(title);
-        meta.setArtist(artist);
-        meta.setAlbum(album);
-
-        return meta;
     }
 }
