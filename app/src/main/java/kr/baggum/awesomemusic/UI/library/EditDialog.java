@@ -15,10 +15,16 @@ import org.cmc.music.common.ID3WriteException;
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import kr.baggum.awesomemusic.Data.IDTag;
 import kr.baggum.awesomemusic.R;
@@ -41,7 +47,7 @@ public class EditDialog {
     public TextView artistEdit;
     public TextView albumEdit;
 
-    public IDTag tag;
+    public IDTag idTag;
 
     public EditDialog(Context context){
         mContext = context;
@@ -68,14 +74,14 @@ public class EditDialog {
                 });
     }
 
-    public void openDialog(String path){
+    public void openDialog(IDTag tag){
         mBottomSheetDialog.setContentView (view);
         mBottomSheetDialog.setCancelable (true);
         mBottomSheetDialog.getWindow ().setLayout (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         mBottomSheetDialog.getWindow ().setGravity (Gravity.BOTTOM);
         mBottomSheetDialog.show ();
 
-        tag = setMetadataFromFileName(path);
+        idTag = tag;
 
         title.setOnClickListener(new View.OnClickListener() {
 
@@ -87,9 +93,22 @@ public class EditDialog {
                 artistEdit = (TextView)contentView.findViewById(R.id.artistEdit);
                 albumEdit = (TextView)contentView.findViewById(R.id.albumEdit);
 
-                titleEdit.setText(tag.title);
-                artistEdit.setText(tag.artist);
-                albumEdit.setText(tag.album);
+                try{
+                    AudioFile f = AudioFileIO.read(new File(idTag.path));
+                    Tag tag1 = f.getTag();
+
+                    if( idTag==null) return ;
+                    String ti = tag1.getFirst(FieldKey.TITLE);
+                    String ar = tag1.getFirst(FieldKey.ARTIST);
+                    String al = tag1.getFirst(FieldKey.ALBUM);
+
+                }catch(Exception ecr){
+                    ecr.printStackTrace();
+                }
+
+                titleEdit.setText(idTag.title);
+                artistEdit.setText(idTag.artist);
+                albumEdit.setText(idTag.album);
 
                 mMaterialDialog.setView(contentView);
                 mMaterialDialog.show();
@@ -105,9 +124,6 @@ public class EditDialog {
             }
         });
     }
-
-
-
 
     private IDTag setMetadataFromFileName(String path){
         File file = new File(path);         //path를 읽어 파일을 받아온다.
