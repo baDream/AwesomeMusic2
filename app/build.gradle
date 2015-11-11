@@ -9,8 +9,8 @@ android {
         applicationId "kr.baggum.awesomemusic"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 7
-        versionName "CLICKCLICK"
+        versionCode 8
+        versionName "LYRICSOME"
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
     }
