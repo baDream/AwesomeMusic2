@@ -974,18 +974,13 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        isLyricScroll = 1;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (isLyricScroll <= 1) scrollView.setVisibility(View.GONE);
+                    case MotionEvent.ACTION_UP: scrollView.setVisibility(View.GONE);
                 }
                 return false;
             }
         });
 
-
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
+        /*      scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Log.e(event.getAction() + " get " + isLyricScroll, " fuck");
@@ -998,12 +993,12 @@ public class MainActivity extends ActionBarActivity {
                         isLyricScroll++;
                         break;
                     case MotionEvent.ACTION_UP:
-                        if (isLyricScroll <= 1) scrollView.setVisibility(View.GONE);
+                        if (isLyricScroll <= 5) scrollView.setVisibility(View.GONE);
                 }
                 return false;
             }
         });
-
+*/
         mPlayImgViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
