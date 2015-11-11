@@ -21,12 +21,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -111,6 +111,8 @@ public class MainActivity extends ActionBarActivity {
     TextView SeekbarMaxTime;
     TextView SeekbarProcessTime;
 
+    ScrollView scrollView;
+
     // Audio
     AudioManager am = null;
     int StreamType = AudioManager.STREAM_MUSIC;
@@ -166,6 +168,8 @@ public class MainActivity extends ActionBarActivity {
         SeekbarMaxTime = (TextView) findViewById(R.id.SeekbarMaxTime);
         SeekbarProcessTime = (TextView) findViewById(R.id.SeekbarProcessTime);
 
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
+
         //actionbar hide(); you can change actionbar at here! by Jun
         ActionBar actionbar = getSupportActionBar();
         actionbar.hide();
@@ -205,11 +209,7 @@ public class MainActivity extends ActionBarActivity {
 
                 mMainMusicSeekBar.setEnabled(true);
                 mSoundSeekBar.setEnabled(true);
-                mLyricView.setClickable(true);
-
-                mLyricView.setMaxLines(200);
-                mLyricView.setVerticalScrollBarEnabled(true);
-                mLyricView.setMovementMethod(new ScrollingMovementMethod());
+                scrollView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -219,10 +219,10 @@ public class MainActivity extends ActionBarActivity {
                 mNextButton.setClickable(false);
                 mPlayImgViewMain.setClickable(false);
 
-                mLyricView.setClickable(false);
                 mMainMusicSeekBar.setEnabled(false);
                 mSoundSeekBar.setEnabled(false);
-                mLyricView.setMovementMethod(null);
+                scrollView.setVisibility(View.GONE);
+
             }
         });
 
@@ -343,8 +343,7 @@ public class MainActivity extends ActionBarActivity {
             mLyricView.setClickable(false);
             mMainMusicSeekBar.setEnabled(false);
             mSoundSeekBar.setEnabled(false);
-            mLyricView.setMovementMethod(null);
-
+            scrollView.setVisibility(View.GONE);
     }
 
     @Override
@@ -394,10 +393,9 @@ public class MainActivity extends ActionBarActivity {
             mMainMusicSeekBar.setEnabled(true);
             mSoundSeekBar.setEnabled(true);
             mLyricView.setClickable(true);
-            mLyricView.setMovementMethod(new ScrollingMovementMethod());
+            scrollView.setVisibility(View.VISIBLE);
 
-
-            mLyricView.setScrollY(0);
+            scrollView.setScrollY(0);
             mLyricView.setText(AwesomePlayer.instance.getLyric());
 
 
@@ -496,10 +494,10 @@ public class MainActivity extends ActionBarActivity {
         mMainMusicSeekBar.setEnabled(true);
         mSoundSeekBar.setEnabled(true);
         mLyricView.setClickable(true);
-        mLyricView.setMovementMethod(new ScrollingMovementMethod());
+        scrollView.setVisibility(View.VISIBLE);
 
 
-        mLyricView.setScrollY(0);
+        scrollView.setScrollY(0);
         mLyricView.setText(AwesomePlayer.instance.getLyric());
 
 
@@ -934,7 +932,7 @@ public class MainActivity extends ActionBarActivity {
                 mMainMusicSeekBar.setEnabled(true);
                 mSoundSeekBar.setEnabled(true);
                 mLyricView.setClickable(true);
-                mLyricView.setMovementMethod(new ScrollingMovementMethod());
+                scrollView.setVisibility(View.VISIBLE);
             } else {
 
             }
@@ -975,25 +973,8 @@ public class MainActivity extends ActionBarActivity {
         mLyricView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                float x=1 , y=1;
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    x = event.getX();
-                    y =event.getY();
-                    Log.e("test "+ event.getAction() + " "+  x," " +y);
-                }
-                if (event.getAction() == MotionEvent.ACTION_MOVE)Log.e("test "+ event.getAction() + " "+  event.getX()," " + event.getY());
 
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.e("test "+ event.getAction() + " ", "" + (x ) + " _ " + (y ));
-                    if (mLyricView.getVisibility() == View.VISIBLE)
-                        mLyricView.setVisibility(View.GONE);
-                    else {
-                        mLyricView.setVisibility(View.VISIBLE);
-                        mLyricView.setText(AwesomePlayer.instance.getLyric());
-                    }
-                }
 
                 return false;
             }
@@ -1002,10 +983,10 @@ public class MainActivity extends ActionBarActivity {
         mPlayImgViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mLyricView.getVisibility()== View.VISIBLE)
-                    mLyricView.setVisibility(View.GONE);
+                if(scrollView.getVisibility()== View.VISIBLE)
+                    scrollView.setVisibility(View.GONE);
                 else {
-                    mLyricView.setVisibility(View.VISIBLE);
+                    scrollView.setVisibility(View.VISIBLE);
                     mLyricView.setText(AwesomePlayer.instance.getLyric());
                 }
             }
@@ -1193,7 +1174,7 @@ public class MainActivity extends ActionBarActivity {
         //set Progress
         mSoundSeekBar.setProgress(am.getStreamVolume(StreamType));
 
-        mLyricView.setMovementMethod(new ScrollingMovementMethod());
+        //mLyricView.setMovementMethod(new ScrollingMovementMethod());
 
     }
 

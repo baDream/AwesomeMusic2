@@ -86,21 +86,27 @@
                     android:elevation="8dp"/>
 
                 <!--text - song text view -->
-                <TextView
-                    android:id="@+id/play_LyricView"
+                <ScrollView
+                    android:id="@+id/scrollView"
                     android:layout_width="fill_parent"
                     android:layout_gravity="top|center"
                     android:layout_marginTop="50dp"
-
                     android:layout_height="300dp"
+                    android:scrollbars="vertical"
                     android:elevation="50dp"
                     android:gravity="center"
-                    android:scrollbars="vertical"
-                    android:textColor="#FFFFFF"
                     android:background="#90000000"
-                    android:textSize="18dp"
-                    android:clickable="false"
-                    />
+                    >
+                        <TextView
+                            android:id="@+id/play_LyricView"
+                            android:layout_height="fill_parent"
+                            android:layout_width="fill_parent"
+                            android:elevation="50dp"
+                            android:gravity="center"
+                            android:textSize="17dp"
+                            android:textColor="#FFFFFF"
+                            />
+                </ScrollView>
 
                 <ImageView
                     android:visibility="gone"
