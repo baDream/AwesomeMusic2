@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
 
     //activity fields
     private boolean isActivityVisible;
-
+    int isLyricScroll = 0;
 
     //DB fields
 
@@ -973,9 +973,33 @@ public class MainActivity extends ActionBarActivity {
         mLyricView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        isLyricScroll = 1;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (isLyricScroll <= 1) scrollView.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
 
 
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e(event.getAction() + " get " + isLyricScroll, " fuck");
 
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        isLyricScroll = 1;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        isLyricScroll++;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (isLyricScroll <= 1) scrollView.setVisibility(View.GONE);
+                }
                 return false;
             }
         });
@@ -983,7 +1007,7 @@ public class MainActivity extends ActionBarActivity {
         mPlayImgViewMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scrollView.getVisibility()== View.VISIBLE)
+                if (scrollView.getVisibility() == View.VISIBLE)
                     scrollView.setVisibility(View.GONE);
                 else {
                     scrollView.setVisibility(View.VISIBLE);
