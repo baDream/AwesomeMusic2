@@ -223,16 +223,61 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
     public String getLyric(){
         //test for lyric
         try {
-            if( songs == null || songs.size()<=songPos) return "no lyric";
+            if( songs == null || songs.size()<=songPos) return "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "no lyric"+
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n";
+            ;
+
             IDTag playsong = songs.get(songPos);
             AudioFile f = AudioFileIO.read(new File(playsong.path));
             Tag tag = f.getTag();
 
-            if( tag==null) return "no lyric";
+            if( tag==null) return "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "no lyric"+
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "\n";
+
             String lyric = tag.getFirst(FieldKey.LYRICS);
 
             if(lyric == "")
-                lyric = "no lyric";
+                lyric = "  \n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "no lyric"+
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        "\n";
 
             return lyric;
 
