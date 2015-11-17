@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.baggum.awesomemusic.Data.IDTag;
+import kr.baggum.awesomemusic.Data.ListGenerator;
 import kr.baggum.awesomemusic.Data.SongDirectoryTree;
 import kr.baggum.awesomemusic.R;
 import kr.baggum.awesomemusic.UI.Activity.MainActivity;
@@ -60,6 +61,11 @@ public class FolderRecyclerAdapter extends RecyclerView.Adapter<FolderRecyclerAd
 
     public FolderRecyclerAdapter(Context context, SongDirectoryTree dataSet) {
         mContext = context;
+
+        if( dataSet == null ){
+            dataSet = ListGenerator.getDirectoryList(context);
+        }
+
         fullDirectoryTree = dataSet;
         directoryTree = dataSet.getTree(dataSet);
         folderList = directoryTree.nextTree;
