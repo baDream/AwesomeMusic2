@@ -496,10 +496,8 @@ public class MainActivity extends ActionBarActivity {
         mLyricView.setClickable(true);
         scrollView.setVisibility(View.VISIBLE);
 
-
         scrollView.setScrollY(0);
         mLyricView.setText(AwesomePlayer.instance.getLyric());
-
 
         //버튼상태 변경
         stateButton();
@@ -537,6 +535,9 @@ public class MainActivity extends ActionBarActivity {
 
         prefsEditor.putInt("LASTSONG_SONG_INDEX", AwesomePlayer.instance.getSongPos());
         prefsEditor.apply(); //commit -> foreground, apply -> background
+
+        listChangeEvent(this);
+        timelineChangeEvent(this);
     }
 
     public void songPicked(ArrayList<IDTag> list, int index) {

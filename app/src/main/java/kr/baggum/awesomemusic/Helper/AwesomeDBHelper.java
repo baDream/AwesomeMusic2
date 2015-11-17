@@ -190,4 +190,24 @@ public class AwesomeDBHelper {
         return year+"-"+month+"-"+day+"/"+hh+":"+mm;
     }
 
+    public void updateSongData(IDTag oriTag, IDTag modiTag){
+        SQLiteDatabase db = UserDB.getInstance(cxt).getDatabase();
+
+        String whereClause = "title='"+oriTag.title.replaceAll("'", "''")+"' AND " +
+                "artist='"+oriTag.artist.replaceAll("'", "''")+"' AND " +
+                "album='"+oriTag.album.replaceAll("'", "''")+"'";
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_TABLE_NAME + " " +
+                "WHERE " + whereClause , null);
+
+        ContentValues row = new ContentValues();
+        row.put("title", modiTag.title);
+        row.put("artist", modiTag.artist);
+        row.put("album", modiTag.album);
+
+        db.update(UserDB.SONG_TABLE_NAME, row, whereClause, null);
+        db.update(UserDB.SONG_LIST_NAME, row, whereClause, null);
+
+        AwesomePlayer.instance.sendListChangeEvent();
+    }
 }

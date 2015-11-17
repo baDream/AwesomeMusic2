@@ -82,8 +82,6 @@ public class MediaScan extends IntentService {
                         MediaStore.Audio.Genres._ID
                 };
 
-                Log.i("aaa", path);
-
                 Uri uri = MediaStore.Audio.Genres.getContentUriForAudioId("external", Integer.parseInt(id));
                 Cursor genresCursor = this.getContentResolver().query(uri,
                         genresProjection, null, null, null);

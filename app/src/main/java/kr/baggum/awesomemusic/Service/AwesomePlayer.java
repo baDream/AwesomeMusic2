@@ -156,8 +156,10 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         this.baseActivity = baseActivity;
     }
     public void sendListChangeEvent(){
-        if(baseActivity != null)
+        if(baseActivity != null) {
             baseActivity.listChangeEvent(baseActivity);
+            baseActivity.timelineChangeEvent(baseActivity);
+        }
     }
     public boolean doesHasSongList() {
         return songs != null;
@@ -436,8 +438,11 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
 
 
     public void updateUIActivity(){
-        if(baseActivity != null && baseActivity.isActivityVisible())
+        if(baseActivity != null && baseActivity.isActivityVisible()) {
             baseActivity.stateChangeMessageFromMP();
+            baseActivity.listChangeEvent(baseActivity);
+            baseActivity.timelineChangeEvent(baseActivity);
+        }
         if(lockScreenActivity != null && lockScreenActivity.isActivityVisible()){
             lockScreenActivity.stateChangeMessageFromMP();
         }

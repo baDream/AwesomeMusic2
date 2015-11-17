@@ -21,28 +21,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/artistEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_artist3"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        android:padding="15dp"
-        android:text="Artist Name Modified"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/albumEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_action_album_mint"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        android:padding="15dp"
-        android:text="Album Name Modified"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/lyricEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

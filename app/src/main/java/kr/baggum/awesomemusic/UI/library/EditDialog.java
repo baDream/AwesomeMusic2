@@ -27,13 +27,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import kr.baggum.awesomemusic.Data.IDTag;
+import kr.baggum.awesomemusic.Helper.AwesomeDBHelper;
 import kr.baggum.awesomemusic.R;
+import kr.baggum.awesomemusic.Service.AwesomePlayer;
 import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by user on 15. 10. 30.
  */
 public class EditDialog {
+    public final short TAG1=1;
+    public final short TAG2=2;
+    public short choice;
+
     private View view;
     private TextView title;
     private TextView lyric;
@@ -46,6 +52,7 @@ public class EditDialog {
     public TextView titleEdit;
     public TextView artistEdit;
     public TextView albumEdit;
+    public TextView lyricEdit;
 
     public IDTag idTag;
 
@@ -58,12 +65,37 @@ public class EditDialog {
         mBottomSheetDialog = new Dialog (mContext, R.style.MaterialDialogSheet);
 
         mMaterialDialog = new MaterialDialog(mContext)
-                .setTitle("MaterialDialog")
-                .setMessage("Hello world!")
                 .setPositiveButton("OK", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.i("aaa", "title : "+ idTag.title);
+                        try {
+                            AudioFile f = AudioFileIO.read(new File(idTag.path).getAbsoluteFile());
+                            Tag tag1 = f.getTagOrCreateAndSetDefault();
+
+                            if (idTag == null) return;
+
+                            switch (choice) {
+                                case TAG1:
+                                    tag1.setField(FieldKey.TITLE, titleEdit.getText().toString());
+                                    tag1.setField(FieldKey.ARTIST, artistEdit.getText().toString());
+                                    tag1.setField(FieldKey.ALBUM, albumEdit.getText().toString());
+                                    f.commit();
+                                    AwesomeDBHelper dbHelper = new AwesomeDBHelper( mContext );
+                                    if( AwesomePlayer.instance != null )
+                                        AwesomePlayer.instance.sendListChangeEvent();
+                                    dbHelper.updateSongData(idTag, new IDTag(titleEdit.getText().toString(), artistEdit.getText().toString(), albumEdit.getText().toString()) );
+                                    Log.i("aaa", artistEdit.getText().toString());
+                                    break;
+                                case TAG2:
+                                    tag1.setField(FieldKey.LYRICS, lyricEdit.getText().toString());
+                                    f.commit();
+                                    Log.i("aaa", lyricEdit.getText().toString());
+                                    break;
+                            }
+                        } catch (Exception ecr) {
+                            Log.i("aaa", "lyric err");
+                            ecr.printStackTrace();
+                        }
                         mMaterialDialog.dismiss();
                     }
                 })
@@ -88,24 +120,12 @@ public class EditDialog {
 
             @Override
             public void onClick(View v) {
+                choice = TAG1;
                 View contentView = LayoutInflater.from(mContext).inflate (R.layout.dialog_layout, null);
 
                 titleEdit = (TextView)contentView.findViewById(R.id.titleEdit);
                 artistEdit = (TextView)contentView.findViewById(R.id.artistEdit);
                 albumEdit = (TextView)contentView.findViewById(R.id.albumEdit);
-
-                try{
-                    AudioFile f = AudioFileIO.read(new File(idTag.path));
-                    Tag tag1 = f.getTag();
-
-                    if( idTag==null) return ;
-                    String ti = tag1.getFirst(FieldKey.TITLE);
-                    String ar = tag1.getFirst(FieldKey.ARTIST);
-                    String al = tag1.getFirst(FieldKey.ALBUM);
-
-                }catch(Exception ecr){
-                    ecr.printStackTrace();
-                }
 
                 titleEdit.setText(idTag.title);
                 artistEdit.setText(idTag.artist);
@@ -120,7 +140,24 @@ public class EditDialog {
         lyric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked Uninstall", Toast.LENGTH_SHORT).show();
+                choice = TAG2;
+                View contentView = LayoutInflater.from(mContext).inflate (R.layout.dialog_layout2, null);
+                lyricEdit = (TextView)contentView.findViewById(R.id.lyricEdit);
+
+                try{
+                    AudioFile f = AudioFileIO.read(new File(idTag.path));
+                    Tag tag1 = f.getTag();
+
+                    if( idTag==null) return ;
+                    String ly = tag1.getFirst(FieldKey.LYRICS);
+                    lyricEdit.setText(ly);
+
+                }catch(Exception ecr){
+                    ecr.printStackTrace();
+                }
+
+                mMaterialDialog.setView(contentView);
+                mMaterialDialog.show();
                 mBottomSheetDialog.dismiss();
             }
         });

@@ -333,7 +333,7 @@ public class ListGenerator {
 
     public static ArrayList<IDTag> getRankingList(Context context){
         SQLiteDatabase db = UserDB.getInstance(context).getDatabase();
-        Cursor listDBcursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_LIST_NAME+ " ORDER BY score DESC", null);
+        Cursor listDBcursor = db.rawQuery("SELECT * FROM " + UserDB.SONG_LIST_NAME + " ORDER BY score DESC", null);
 
         if(listDBcursor == null || listDBcursor.getCount()<=0)
             return null;
@@ -341,7 +341,8 @@ public class ListGenerator {
         ArrayList<IDTag> songList = new ArrayList<>();
 
         while(listDBcursor.moveToNext()){
-            songList.add( createIDTag(listDBcursor) );
+            if( listDBcursor.getInt( listDBcursor.getColumnIndex("score")) >0 ) songList.add( createIDTag(listDBcursor) );
+            else break;
             if( songList.size()>=50) break;
         }
         return songList;
