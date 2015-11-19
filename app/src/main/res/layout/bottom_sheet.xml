@@ -17,7 +17,7 @@
         android:drawablePadding="15dp"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="Title Name modified"
+        android:text="Music Tag modified"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

@@ -560,35 +560,38 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         int randNum2;
         int size;
         int pos;
+
+        ArrayList<IDTag> tmps = new ArrayList<IDTag>();
+        tmps.addAll(songs);
+
         tempSongs = new ArrayList<IDTag>();
         tempSongs.addAll(songs);
         IDTag tmp = AwesomePlayer.instance.getCurrentSong();
 
         if( shuffle ){
-            Collections.sort(tempSongs, new Comparator<IDTag>() {
+            Collections.sort(tmps, new Comparator<IDTag>() {
                 public int compare(IDTag obj1, IDTag obj2){
                     return (obj1.score > obj2.score) ? -1 : (obj1.score > obj2.score) ? 1 : 0;
                 }
             });
 
-            while( tempSongs.size() > 0 ) {
-                size = tempSongs.size()/5;
-                size += tempSongs.size()%5;
+            while( tmps.size() > 0 ) {
+                size = tmps.size()/5;
+                size += tmps.size()%5;
                 randNum1 = rand.nextInt(100);
                 if(randNum1 > 60 )      {   randNum2 = (rand.nextInt(size));} // 0 ~ size
-                else if( randNum1 > 30 ){   randNum2 = (rand.nextInt(size)+size)        % tempSongs.size(); } // size ~
-                else if( randNum1 > 15 ){   randNum2 = (rand.nextInt(size)+(size*2))    % tempSongs.size(); }
-                else if( randNum1 > 5 ) {   randNum2 = (rand.nextInt(size)+(size*3))    % tempSongs.size(); }
-                else                    {   randNum2 = (rand.nextInt(size)+(size*4))    % tempSongs.size(); }
+                else if( randNum1 > 30 ){   randNum2 = (rand.nextInt(size)+size)        % tmps.size(); } // size ~
+                else if( randNum1 > 15 ){   randNum2 = (rand.nextInt(size)+(size*2))    % tmps.size(); }
+                else if( randNum1 > 5 ) {   randNum2 = (rand.nextInt(size)+(size*3))    % tmps.size(); }
+                else                    {   randNum2 = (rand.nextInt(size)+(size*4))    % tmps.size(); }
 
-                shuffleList.add(tempSongs.get(randNum2));
-                tempSongs.remove(randNum2);
+                shuffleList.add(tmps.get(randNum2));
+                tmps.remove(randNum2);
             }
             songs = shuffleList;
         }else{
-            if( baseActivity != null ){
-                baseActivity.setList();
-            }
+            songs = new ArrayList<IDTag>();
+            songs.addAll(tempSongs);
         }
         int i;
         for (i = 0; i < songs.size(); i++) {

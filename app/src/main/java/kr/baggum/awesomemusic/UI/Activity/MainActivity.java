@@ -712,7 +712,6 @@ public class MainActivity extends ActionBarActivity {
                 break;
             default:
                 list = ListGenerator.getAllSongList(getApplicationContext());
-                list = ListGenerator.getAllSongList(getApplicationContext());
         }
 
         AwesomePlayer.instance.setSongs(list);
