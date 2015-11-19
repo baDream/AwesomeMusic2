@@ -32,6 +32,7 @@ import org.jaudiotagger.tag.TagException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
@@ -564,11 +565,15 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
         ArrayList<IDTag> tmps = new ArrayList<IDTag>();
         tmps.addAll(songs);
 
-        tempSongs = new ArrayList<IDTag>();
-        tempSongs.addAll(songs);
         IDTag tmp = AwesomePlayer.instance.getCurrentSong();
 
         if( shuffle ){
+            tempSongs = new ArrayList<IDTag>();
+
+            for(int i=0; i<songs.size(); i++){
+                tempSongs.add(songs.get(i));
+            }
+
             Collections.sort(tmps, new Comparator<IDTag>() {
                 public int compare(IDTag obj1, IDTag obj2){
                     return (obj1.score > obj2.score) ? -1 : (obj1.score > obj2.score) ? 1 : 0;
@@ -591,16 +596,23 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
             songs = shuffleList;
         }else{
             songs = new ArrayList<IDTag>();
-            songs.addAll(tempSongs);
+            for(int i=0; i<tempSongs.size(); i++){
+                songs.add(tempSongs.get(i));
+            }
         }
-        int i;
-        for (i = 0; i < songs.size(); i++) {
-            if (tmp.title.equals(songs.get(i).title) && tmp.artist.equals(songs.get(i).artist) && tmp.album.equals(songs.get(i).album))
+        for (int i = 0; i < songs.size(); i++) {
+            if (tmp.title.equals(songs.get(i).title) && tmp.artist.equals(songs.get(i).artist) && tmp.album.equals(songs.get(i).album)) {
+                IDTag tmp1 = songs.get(i);
+                songs.set(i, songs.get(0));
+                songs.set(0, tmp1);
                 break;
+            }
         }
-        AwesomePlayer.instance.setSongIndex(i);
+        AwesomePlayer.instance.setSongIndex(0);
         updateUIActivity();
     }
+
+
     public boolean isSongChanged() {
         return isSongChanged;
     }
