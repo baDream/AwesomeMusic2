@@ -567,6 +567,7 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
 
         IDTag tmp = AwesomePlayer.instance.getCurrentSong();
 
+        //if random playing
         if( shuffle ){
             tempSongs = new ArrayList<IDTag>();
 
@@ -594,20 +595,29 @@ public class AwesomePlayer extends Service implements MediaPlayer.OnPreparedList
                 tmps.remove(randNum2);
             }
             songs = shuffleList;
-        }else{
+
+            if( isPlaying() ) {
+                for (int i = 0; i < songs.size(); i++) {
+                    if (tmp.title.equals(songs.get(i).title) && tmp.artist.equals(songs.get(i).artist) && tmp.album.equals(songs.get(i).album)) {
+                        songs.set(i, songs.get(0));
+                        songs.set(0, tmp);
+                    }
+                }
+            }
+        }else{      //if no random playing
             songs = new ArrayList<IDTag>();
-            for(int i=0; i<tempSongs.size(); i++){
+            for(int i=0; i<tempSongs.size(); i++) {
                 songs.add(tempSongs.get(i));
             }
-        }
-        for (int i = 0; i < songs.size(); i++) {
-            if (tmp.title.equals(songs.get(i).title) && tmp.artist.equals(songs.get(i).artist) && tmp.album.equals(songs.get(i).album)) {
-                IDTag tmp1 = songs.get(i);
-                songs.set(i, songs.get(0));
-                songs.set(0, tmp1);
-                break;
+
+            for (int i = 0; i < songs.size(); i++) {
+                if (tmp.title.equals(songs.get(i).title) && tmp.artist.equals(songs.get(i).artist) && tmp.album.equals(songs.get(i).album)) {
+                    songs.set(i, songs.get(0));
+                    songs.set(0, tmp);
+                }
             }
         }
+
         AwesomePlayer.instance.setSongIndex(0);
         updateUIActivity();
     }
